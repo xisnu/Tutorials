@@ -1,5 +1,6 @@
 from __future__ import print_function
 from UTHRNN_TF import *
+from ReadData import *
 import numpy as np
 
 
@@ -11,9 +12,9 @@ g=tf.Graph()
 with g.as_default():
     inp=tf.placeholder(tf.float32,shape=[None,ts,f])
     target=tf.placeholder(tf.float32,shape=[None,Nc])
-    rnn1=psmLSTM(4,inp,"rnn1")
+    rnn1=UTHRNN(4,inp,"rnn1")
     print(get_layer_shape(rnn1))
-    rnn2=psmLSTM(8,rnn1,"rnn2",return_sequence=False)
+    rnn2=UTHRNN(8,rnn1,"rnn2",return_sequence=False)
     print(get_layer_shape(rnn2))
     logit,prob=FullyConnected(rnn2,Nc,'output',give_prob=True)
     print(get_layer_shape(logit))
