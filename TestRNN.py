@@ -7,6 +7,7 @@ import numpy as np
 ts=512
 f=1
 Nc=2
+earthquake_path="Data/Earthquakes_"
 
 g=tf.Graph()
 with g.as_default():
