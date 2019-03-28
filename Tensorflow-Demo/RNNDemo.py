@@ -1,6 +1,8 @@
 from __future__ import print_function
+
 import numpy as np
 import tensorflow as tf
+from ReadData import *
 
 
 def get_layer_shape(layer):
@@ -8,27 +10,8 @@ def get_layer_shape(layer):
     ts = [thisshape[i].value for i in range(len(thisshape))]
     return ts
 
-def load_data(filename):
-    f=open(filename)
-    line=f.readline()
-    xs=[]
-    ys=[]
-    while line:
-        items=line.strip("\n").split(",")
-        targetname=items[-1]
-        target_index=int(targetname[-1])-1
-        target_1h=[0,0,0,0]
-        target_1h[target_index]=1.0
-        features=items[:-1]
-        xs.append(features)
-        ys.append(target_1h)
-        line=f.readline()
-    xs=np.expand_dims(xs,2)
-    ys=np.asarray(ys)
-    print("X Shape ",xs.shape," Y Shape ",ys.shape)
-    return xs,ys
 
-x_data,y_data=load_data("Data/soybean-small.data")
+x_data, y_data = load_soybean_data("Data/soybean-small.data", for_rnn=True)
 
 nb_features=x_data.shape[1]
 nb_classes=y_data.shape[1]
